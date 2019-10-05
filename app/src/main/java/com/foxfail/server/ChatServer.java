@@ -1,9 +1,6 @@
 package com.foxfail.server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,10 +9,10 @@ import java.util.List;
 
 public class ChatServer {
 
-    ServerSocket serverSocket;
-    List<PrintWriter> clientOutputWriters;
+    private ServerSocket serverSocket;
+    private List<PrintWriter> clientOutputWriters;
 
-    public ChatServer() {
+    private ChatServer() {
         try {
             System.out.println("Server starting...");
             clientOutputWriters = new ArrayList<>();
@@ -28,6 +25,7 @@ public class ChatServer {
     public static void main(String[] args) {
         ChatServer chatServer = new ChatServer();
         System.out.println("Server start to listen");
+        //noinspection InfiniteLoopStatement
         while (true) {
             chatServer.listenToMessage();
         }
