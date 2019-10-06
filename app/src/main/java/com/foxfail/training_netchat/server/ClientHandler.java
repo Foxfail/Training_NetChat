@@ -20,7 +20,7 @@ public class ClientHandler implements Runnable {
     ClientHandler(Socket clientSocket, ChatServer chatServer) {
         try {
             this.server = chatServer;
-            InputStreamReader inputStream = new InputStreamReader(clientSocket.getInputStream());
+            InputStreamReader inputStream = new InputStreamReader(clientSocket.getInputStream(), "UTF-8");
             reader = new BufferedReader(inputStream);
         } catch (IOException e) {
             e.printStackTrace();

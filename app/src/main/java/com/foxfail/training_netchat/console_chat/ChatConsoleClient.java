@@ -3,10 +3,12 @@ package com.foxfail.training_netchat.console_chat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 
 class ChatConsoleClient {
 
@@ -23,8 +25,8 @@ class ChatConsoleClient {
     ChatConsoleClient(String host, int port) {
         try {
             Socket socket = new Socket(host, port);
-            this.writer = new PrintWriter(socket.getOutputStream());
-            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
+            this.writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8));
+            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream(), "UTF-8");
             this.reader = new BufferedReader(streamReader);
             System.out.println("Network is ready");
 

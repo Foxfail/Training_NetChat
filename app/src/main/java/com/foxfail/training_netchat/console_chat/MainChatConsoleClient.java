@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class MainChatConsoleClient {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        String encoding = System.getProperty("console.encoding", "utf-8");
+        System.out.println("encoding:" + encoding);
+        Scanner scanner = new Scanner(System.in, encoding);
         System.out.print("Enter server ip address:");
         String serverAdress = scanner.nextLine();
 

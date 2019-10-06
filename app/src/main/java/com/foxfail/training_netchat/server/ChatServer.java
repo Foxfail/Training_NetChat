@@ -1,9 +1,11 @@
 package com.foxfail.training_netchat.server;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ class ChatServer {
 
             System.out.print("New client is connecting...");
 
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8));
             clientOutputWriters.add(writer);
 
             Thread clientHadler = new Thread(new ClientHandler(clientSocket, this));
