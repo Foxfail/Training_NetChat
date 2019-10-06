@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketException;
 
 class ChatConsoleClient {
 
@@ -15,6 +16,7 @@ class ChatConsoleClient {
     /**
      * Конструктор подготавливает сеть к двунаправленой связи с сервером
      * и запускает тред прослушивающий сообщения от сервера
+     *
      * @param host ip-адрес хоста на котором запущен сервер
      * @param port порт на котором висит сервер
      */
@@ -29,8 +31,8 @@ class ChatConsoleClient {
             Thread readerThread = new Thread(new IncomingReader());
             readerThread.start();
             System.out.println("Ready to chat");
-        } catch (ConnectException e){
-            if (e.getMessage().equals("Connection refused: connect")){
+        } catch (ConnectException e) {
+            if (e.getMessage().equals("Connection refused: connect")) {
                 System.out.println("Server is not responding");
             } else {
                 e.printStackTrace();
@@ -42,6 +44,7 @@ class ChatConsoleClient {
 
     /**
      * Отправляет сообщение на сервер
+     *
      * @param message - сообщение которое необходимо отправить
      */
     void sendMessage(String message) {
@@ -60,6 +63,12 @@ class ChatConsoleClient {
             try {
                 while ((message = reader.readLine()) != null) {
                     System.out.println(message);
+                }
+            } catch (SocketException e) {
+                if (e.getMessage().equals("Connection reset")) {
+                    System.out.println("Cannot connect to server");
+                } else {
+                    e.printStackTrace();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
