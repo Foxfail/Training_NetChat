@@ -37,7 +37,7 @@ public class ClientHandler implements Runnable {
             }
         }catch (SocketException e){
             if (e.getMessage().equals("Connection reset")){
-                System.out.println("Клиент отключился");
+                System.out.println("Client is offline");
             }
         }catch (IOException e) {
             e.printStackTrace();

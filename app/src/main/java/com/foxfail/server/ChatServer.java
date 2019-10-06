@@ -41,7 +41,7 @@ class ChatServer {
         try {
             Socket clientSocket = serverSocket.accept();
 
-            System.out.print("Новый клиент подключается...");
+            System.out.print("New client is connecting...");
 
             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
             clientOutputWriters.add(writer);
@@ -49,7 +49,7 @@ class ChatServer {
             Thread clientHadler = new Thread(new ClientHandler(clientSocket, this));
             clientHadler.start();
 
-            System.out.println("Подключен");
+            System.out.println("ok");
         } catch (IOException e) {
             e.printStackTrace();
         }
