@@ -14,15 +14,13 @@ import java.net.SocketException;
  */
 public class ClientHandler implements Runnable {
 
-    private Socket socket;
     private BufferedReader reader;
     private ChatServer server;
 
     ClientHandler(Socket clientSocket, ChatServer chatServer) {
         try {
-            this.socket = clientSocket;
             this.server = chatServer;
-            InputStreamReader inputStream = new InputStreamReader(socket.getInputStream());
+            InputStreamReader inputStream = new InputStreamReader(clientSocket.getInputStream());
             reader = new BufferedReader(inputStream);
         } catch (IOException e) {
             e.printStackTrace();

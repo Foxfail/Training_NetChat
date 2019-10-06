@@ -7,12 +7,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatServer {
+class ChatServer {
 
     private ServerSocket serverSocket;
     private List<PrintWriter> clientOutputWriters;
 
-    public ChatServer(int port) {
+    ChatServer(int port) {
         try {
             clientOutputWriters = new ArrayList<>();
             serverSocket = new ServerSocket(port);
@@ -21,8 +21,7 @@ public class ChatServer {
         }
     }
 
-
-    public void start() {
+    void start() {
         System.out.print("Server starting...");
 
         new Thread(new Runnable() {
@@ -56,7 +55,7 @@ public class ChatServer {
         }
     }
 
-    public synchronized void sendToAll(String message) {
+    synchronized void sendToAll(String message) {
         for (PrintWriter writer : clientOutputWriters) {
             writer.println(message);
             writer.flush();
