@@ -4,8 +4,10 @@ import java.util.Scanner;
 
 public class MainServer {
     public static void main(String[] args) {
-        ChatServer chatServer = new ChatServer(27500);
-
+        System.out.print("Enter server port to start on: ");
+        Scanner scanner = new Scanner(System.in);
+        Integer port = Integer.valueOf(scanner.nextLine());
+        ChatServer chatServer = new ChatServer(port);
         chatServer.start();
     }
 }
