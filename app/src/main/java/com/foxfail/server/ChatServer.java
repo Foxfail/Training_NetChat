@@ -12,40 +12,42 @@ public class ChatServer {
     private ServerSocket serverSocket;
     private List<PrintWriter> clientOutputWriters;
 
-    private ChatServer() {
+    public ChatServer(int port) {
         try {
-            System.out.println("Server starting...");
             clientOutputWriters = new ArrayList<>();
-            serverSocket = new ServerSocket(27500);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        ChatServer chatServer = new ChatServer();
-        System.out.println("Server start to listen");
-        //noinspection InfiniteLoopStatement
-        while (true) {
-            chatServer.listenToMessage();
-        }
-//            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-//            String message = "test";
-//            writer.println(message);
-//            writer.close();
-//            reader.close();
-//            System.out.println("Исходящее сообщение:" + message);
+
+    public void start() {
+        System.out.print("Server starting...");
+
+        new Thread(new Runnable() {
+            @SuppressWarnings("InfiniteLoopStatement")
+            @Override
+            public void run() {
+                while (true) {
+                    listenToMessage();
+                }
+            }
+        }).start();
+
+        System.out.println("ok");
     }
 
     private void listenToMessage() {
         try {
             Socket clientSocket = serverSocket.accept();
+
             System.out.print("Новый клиент подключается...");
 
             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
             clientOutputWriters.add(writer);
 
-            Thread clientHadler = new Thread(new ClientHandler(clientSocket));
+            Thread clientHadler = new Thread(new ClientHandler(clientSocket, this));
             clientHadler.start();
 
             System.out.println("Подключен");
@@ -54,5 +56,11 @@ public class ChatServer {
         }
     }
 
+    public synchronized void sendToAll(String message) {
+        for (PrintWriter writer : clientOutputWriters) {
+            writer.println(message);
+            writer.flush();
+        }
+    }
 
 }
