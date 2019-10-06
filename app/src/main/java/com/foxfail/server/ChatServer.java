@@ -50,6 +50,7 @@ class ChatServer {
             clientHadler.start();
 
             System.out.println("ok");
+            sendToAll("New client is connected");
         } catch (IOException e) {
             e.printStackTrace();
         }
