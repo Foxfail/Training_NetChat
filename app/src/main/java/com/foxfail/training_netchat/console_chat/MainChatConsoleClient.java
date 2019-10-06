@@ -4,10 +4,24 @@ import java.util.Scanner;
 
 public class MainChatConsoleClient {
     public static void main(String[] args) {
-        ChatConsoleClient chatConsoleClient = new ChatConsoleClient("127.0.0.1", 27500);
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter server ip address:");
+        String serverAdress = scanner.nextLine();
+
+        Integer port = null;
+        while (port == null) {
+            System.out.print("Enter server port:");
+            try {
+                port = Integer.valueOf(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Server port need to be a number 1-65535");
+            }
+        }
+
+
+        ChatConsoleClient chatConsoleClient = new ChatConsoleClient(serverAdress, port);
         //noinspection InfiniteLoopStatement
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             String message = scanner.nextLine();
             chatConsoleClient.sendMessage(message);
         }
