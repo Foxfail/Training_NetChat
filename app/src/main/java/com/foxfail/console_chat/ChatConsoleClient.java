@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 
 class ChatConsoleClient {
@@ -11,6 +12,12 @@ class ChatConsoleClient {
     private PrintWriter writer;
     private BufferedReader reader;
 
+    /**
+     * Конструктор подготавливает сеть к двунаправленой связи с сервером
+     * и запускает тред прослушивающий сообщения от сервера
+     * @param host ip-адрес хоста на котором запущен сервер
+     * @param port порт на котором висит сервер
+     */
     ChatConsoleClient(String host, int port) {
         try {
             Socket socket = new Socket(host, port);
@@ -33,11 +40,19 @@ class ChatConsoleClient {
         }
     }
 
+    /**
+     * Отправляет сообщение на сервер
+     * @param message - сообщение которое необходимо отправить
+     */
     void sendMessage(String message) {
         writer.println(message);
         writer.flush();
     }
 
+    /**
+     * Вложенный класс который реализует Runnable для запуска в отдельном потоке
+     * Слушет входящие сообщения и выводит их на консоль
+     */
     public class IncomingReader implements Runnable {
         @Override
         public void run() {
