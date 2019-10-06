@@ -22,6 +22,12 @@ class ChatConsoleClient {
             Thread readerThread = new Thread(new IncomingReader());
             readerThread.start();
             System.out.println("Ready to chat");
+        } catch (ConnectException e){
+            if (e.getMessage().equals("Connection refused: connect")){
+                System.out.println("Server is not responding");
+            } else {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
