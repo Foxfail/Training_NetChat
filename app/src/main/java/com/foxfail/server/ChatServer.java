@@ -21,6 +21,10 @@ class ChatServer {
         }
     }
 
+    /**
+     * Процедура запуска сервера заключается в старте нового треда в котором
+     * в цикле прослушивается канал на предмет новых подключений.
+     */
     void start() {
         System.out.print("Server starting...");
 
@@ -37,6 +41,11 @@ class ChatServer {
         System.out.println("ok");
     }
 
+    /**
+     * serverSocket.accept() останавливает тред до тех пор пока не получит новое подключение
+     * Как только новый клиент подключается, его соединение передается в новый поток ClientHandler
+     * Также соединение вносится в список текущих соединений.
+     */
     private void listenToMessage() {
         try {
             Socket clientSocket = serverSocket.accept();
@@ -56,6 +65,10 @@ class ChatServer {
         }
     }
 
+    /**
+     * Пробегает по списку клиентов и отправляет всем сообщение
+     * @param message - сообщение которое необходимо разослать всем
+     */
     synchronized void sendToAll(String message) {
         for (PrintWriter writer : clientOutputWriters) {
             writer.println(message);
