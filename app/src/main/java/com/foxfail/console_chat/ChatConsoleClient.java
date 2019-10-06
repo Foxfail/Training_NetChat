@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-class ChatConsole {
+class ChatConsoleClient {
 
     private PrintWriter writer;
     private BufferedReader reader;
 
-    ChatConsole(String host, int port) {
+    ChatConsoleClient(String host, int port) {
         try {
             Socket socket = new Socket(host, port);
             this.writer = new PrintWriter(socket.getOutputStream());
