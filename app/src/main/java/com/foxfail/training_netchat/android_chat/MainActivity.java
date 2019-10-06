@@ -1,4 +1,4 @@
-package com.foxfail.android_chat;
+package com.foxfail.training_netchat.android_chat;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

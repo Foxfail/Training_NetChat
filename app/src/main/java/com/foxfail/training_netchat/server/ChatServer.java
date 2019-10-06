@@ -1,4 +1,4 @@
-package com.foxfail.server;
+package com.foxfail.training_netchat.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;

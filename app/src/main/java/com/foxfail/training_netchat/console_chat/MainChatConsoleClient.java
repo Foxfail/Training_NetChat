@@ -1,4 +1,4 @@
-package com.foxfail.console_chat;
+package com.foxfail.training_netchat.console_chat;
 
 import java.util.Scanner;
 
